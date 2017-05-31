@@ -1,6 +1,5 @@
 'use strict'
 $(document).ready(function() {
-	
 	loadData();
 	loadSecondCategory();
 	loadSecondAddress();
@@ -28,10 +27,15 @@ function loadData(){
         	if(_totalPages>0){
         		_list=data.list;
             	$.each(data.list,function(i,active){
+            		var statusHtml = '已审核';
+            		if(active.showStatus==0){
+            			statusHtml = '<a class="btn btn-s-md btn-danger" onclick="changeStatus('+active.id+')">审核</a>';
+            		}
             		var  _row="<tr>"+
             		    "<td style=\"display:none;\">"+i+"</td>"+
             		  	"<td>"+active.name+"</td>"+
             		  	"<td>"+active.type+"</td>"+
+            		  	"<td>"+statusHtml+"</td>"+
             		 	"<td>"+active.openTime+"</td>"+
             		 	"<td>"+active.closeTime+"</td>"+
             		 	"<td>"+active.startTime+"</td>"+
@@ -43,7 +47,9 @@ function loadData(){
             		  	"<td>"+
             		  	"<a href=\"active/materialController/list.do?activeId="+active.id+"\" class=\"btn btn-s-md btn-danger \">素材管理</a>  "+
             		  	"<a href=\"#modal-add-update\" data-toggle=\"modal\" class=\"btn btn-s-md btn-danger \" onclick=\"updateActive("+i+")\">修改</a>  "+
-            		  	"<a class=\"btn btn-s-md btn-danger \" onclick=\"delActive("+i+")\">删除</a>"+
+            		  	"<a class=\"btn btn-s-md btn-danger \" onclick=\"delActive("+i+")\">删除</a>    "+
+            		  	"<a class=\"btn btn-s-md btn-danger \" onclick=\"goActive("+i+")\">预览</a>   "+
+            		  	"<a class=\"btn btn-s-md btn-danger \" href=\"active/peopleController/exportPeoples.do?activeId="+active.id+"\" >报名用户导出</a>"+
             		  	"</td>"+
             		  	"</tr>"
             		$("#tbody_active").append(_row);
@@ -52,6 +58,28 @@ function loadData(){
         }
     });
 
+}
+
+function changeStatus(id){
+	$.ajax({
+		url:'active/activeController/status.do',
+		type:'post',
+		data:'id='+id,
+		dataType:'json',
+		success:function(res){
+			if(res!=null){
+				alert('审核成功！');
+				location.reload();
+			}
+		}
+	})
+}
+
+function goActive(index){
+	if(_list){
+		var active=_list[index];
+		window.open('/active/page/detailA.html?id='+active.id);
+	}
 }
 
 /**
@@ -187,21 +215,16 @@ function listActiveUsers(index){
  * @returns
  */
 function loadSecondCategory(){
-	var userName = $('#userName').val();
-	if(userName!='admin'){
-		$("#active_type").html('<option value="'+userName+'" >'+userName+'</option>');
-	}else{
-		$.ajax({
-	        url:"active/categoryController/loadSecondCategory.do",
-	        success:function(data){
-	        	$("#active_type").empty();
-	            	$.each(data,function(i,category){
-	            		var _option="<option value="+category.name+">"+category.fatherName+"-"+category.name+"</option>";
-	            		$("#active_type").append(_option);
-	            	});
-	        }
-	    });
-	}
+	$.ajax({
+        url:"active/categoryController/loadSecondCategory.do",
+        success:function(data){
+        	$("#active_type").empty();
+            	$.each(data,function(i,category){
+            		var _option="<option value="+category.name+">"+category.fatherName+"-"+category.name+"</option>";
+            		$("#active_type").append(_option);
+            	});
+        }
+    });
 }
 
 /**
