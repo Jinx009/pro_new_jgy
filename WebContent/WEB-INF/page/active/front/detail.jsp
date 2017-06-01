@@ -17,7 +17,7 @@
     <script src="/themes/active/js/front/mobiscroll.custom-2.6.2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/themes/active/css/front/reset.css">
     <link rel="stylesheet" type="text/css" href="/themes/active/css/front/mobiscroll.custom-2.6.2.min.css">
-    <link rel="stylesheet" type="text/css" href="/themes/active/css/front/jgy.css">
+    <link rel="stylesheet" type="text/css" href="/themes/active/css/front/jgy.css?version=1.1">
     <script src="/themes/active/js/front/detail.js"></script>
 </head>
 <body>
@@ -25,11 +25,11 @@
 	<div class="activity-banner"><img v-bind:src="data.topImg" /></div>
 	<div class="activity-title">
 		<h1 v-text="data.name" ></h1>
-		<p><b>报名时间:</b><span>{{data.startTime}}</span><span>~</span><span>{{data.endTime}}</span></p>
+		<p><b>报名时间:</b><span v-text="data.startTime" ></span><span>~</span><span v-text="data.endTime"></span></p>
 	</div>
 	<ul class="inform activity-inform">
-		<li style="font-size: 16px;" ><p  style="font-size: 16px;" >时间：{{data.openTime}}——{{data.closeTime}}</p></li>
-		<li  style="font-size: 16px;height: auto;" ><p  style="font-size: 16px;" >地址：{{data.address}}{{data.detailAddress}}</p></li>
+		<li style="font-size: 16px;" ><p  style="font-size: 16px;"  v-text="'时间：'+data.openTime+'——'+data.closeTime"  ></p></li>
+		<li  style="font-size: 16px;height: auto;" ><p  style="font-size: 16px;" v-text="'地址：'data.address''data.detailAddress"   ></p></li>
 		<li  style="font-size: 16px;" ><p>类型：<span  style="font-size: 16px;" >{{data.type}}</span></p></li>
 		<li v-if="'3'===data.detailImg"  style="font-size: 16px;" ><p style="color: red;font-size: 16px;" onclick="saveLike('{{data.id}}')" >点击收藏</p></li>
 		<li v-if="'2'===data.detailImg"  style="font-size: 16px;" ><p  style="color: red;font-size: 16px;" onclick="cancleLike('{{data.id}}')" >取消收藏</p></li>
