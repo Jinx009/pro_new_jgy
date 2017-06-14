@@ -17,7 +17,7 @@
     <script src="/themes/active/js/front/mobiscroll.custom-2.6.2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/themes/active/css/front/reset.css">
     <link rel="stylesheet" type="text/css" href="/themes/active/css/front/mobiscroll.custom-2.6.2.min.css">
-    <link rel="stylesheet" type="text/css" href="/themes/active/css/front/jgy.css?version=1.1">
+    <link rel="stylesheet" type="text/css" href="/themes/active/css/front/jgy.css?version=1.2">
     <script src="/themes/active/js/front/detail.js"></script>
 </head>
 <body>
