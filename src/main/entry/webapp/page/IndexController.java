@@ -36,44 +36,44 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request,HttpServletResponse response) throws ClientProtocolException, IOException{
-		String code = request.getParameter("code");
-		System.out.println("code:"+code);
-		Integer userId = 0;
-		Integer status = 0;
-		if(null!=code&&!"".equals(code)){
-			String openid = WechatUtil.getOauthOpenId(WechatData.APP_ID, WechatData.APP_SECRET,code);
-			if(null!=openid){
-				String hql = " FROM UserA WHERE openid = '"+openid+"' ";
-				UserA user = null;
-				List<UserA> list = userAService.getByHql(hql);
-				if(null!=list){
-					user = list.get(0);
-				}
-				if(null!=user){
-					status = user.getStatus();
-					request.getSession().setAttribute("name", user.getRealName());
-					request.getSession().setAttribute("pic",user.getPic1());
-					request.setAttribute("name", user.getRealName());
-					request.setAttribute("pic",user.getPic1());
-				}else{
-					user = new UserA();
-					user.setAddTime(new Date());
-					user.setOpenid(openid);
-					user.setStatus(0);
-					user.setLoginTime(new Date());
-					user.setLoginTimes(1);
-					user = userAService.save(user);
-				}
-				status = user.getStatus();
-				System.out.println(status);
-				userId = user.getId();
-			}
-		}
-		request.setAttribute("userId",userId);
-		request.setAttribute("status",status);
-//		User user2 = userService.findById(3);
-//		request.getSession().setAttribute("name", user2.getRealName());
-//		request.getSession().setAttribute("pic",user2.getPic1());
+//		String code = request.getParameter("code");
+//		System.out.println("code:"+code);
+//		Integer userId = 0;
+//		Integer status = 0;
+//		if(null!=code&&!"".equals(code)){
+//			String openid = WechatUtil.getOauthOpenId(WechatData.APP_ID, WechatData.APP_SECRET,code);
+//			if(null!=openid){
+//				String hql = " FROM UserA WHERE openid = '"+openid+"' ";
+//				UserA user = null;
+//				List<UserA> list = userAService.getByHql(hql);
+//				if(null!=list){
+//					user = list.get(0);
+//				}
+//				if(null!=user){
+//					status = user.getStatus();
+//					request.getSession().setAttribute("name", user.getRealName());
+//					request.getSession().setAttribute("pic",user.getPic1());
+//					request.setAttribute("name", user.getRealName());
+//					request.setAttribute("pic",user.getPic1());
+//				}else{
+//					user = new UserA();
+//					user.setAddTime(new Date());
+//					user.setOpenid(openid);
+//					user.setStatus(0);
+//					user.setLoginTime(new Date());
+//					user.setLoginTimes(1);
+//					user = userAService.save(user);
+//				}
+//				status = user.getStatus();
+//				System.out.println(status);
+//				userId = user.getId();
+//			}
+//		}
+//		request.setAttribute("userId",userId);
+//		request.setAttribute("status",status);
+		UserA user2 = userAService.findById(40);
+		request.getSession().setAttribute("name", user2.getRealName());
+		request.getSession().setAttribute("pic",user2.getPic1());
 		return "/index";
 	}
 	

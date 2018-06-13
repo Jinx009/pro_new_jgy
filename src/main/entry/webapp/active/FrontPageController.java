@@ -187,8 +187,8 @@ public class FrontPageController {
 		String id = request.getParameter("id");
 		request.setAttribute("id",id);
 		HttpSession session = request.getSession();
-//		ActiveUser activeUser = activeUserService.find(126);
-//		session.setAttribute("sessionUser",activeUser);
+		ActiveUser activeUser = activeUserService.find(1);
+		session.setAttribute("sessionUser",activeUser);
 		ActiveUser user = null;
 		if(session.getAttribute("sessionUser")!=null&&!"".equals(session.getAttribute("sessionUser"))){
 			user = (ActiveUser) session.getAttribute("sessionUser");

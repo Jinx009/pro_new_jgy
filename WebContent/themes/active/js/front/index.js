@@ -69,6 +69,9 @@ function getByType(content){
 	address = $('#addressDiv').val();
 	if(content!=''){
 		type = content;
+		if(type=='白玉兰<br>女子讲堂'){
+			type = '白玉兰女子讲堂';
+		}
 	}
 	window.sessionStorage.setItem('type',type);
 	window.sessionStorage.setItem('address',address);
